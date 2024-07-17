@@ -15,14 +15,25 @@ class Solution:
         for letter in s:
             print(self.stack)
             print(letter)
-            if letter == "(" or letter == "{" or letter == "[":
+            if letter in "({[":
                 self.push(letter)
-            elif letter == ")" and len(self.stack) > 0:
-                self.pop()
-            elif letter == "}" and len(self.stack) > 0:
-                self.pop()
-            elif letter == "]" and len(self.stack) > 0:
-                self.pop()
+            elif letter in ")}]":
+                item = self.pop()
+                if item != letter:
+                    return False
+        if len(self.stack) == 0:
+            return True
+        else:
+            return False
+                
+            # elif letter == ")" and len(self.stack) > 0:
+            #     item = self.pop()
+            #     if item != ""
+            # elif letter == "}" and len(self.stack) > 0:
+            #     item = self.pop()
+            # elif letter == "]" and len(self.stack) > 0:
+            #     item = self.pop()
+                
             else:
                 return False
         if len(self.stack) != 0:
