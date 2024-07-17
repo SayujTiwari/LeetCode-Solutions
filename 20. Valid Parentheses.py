@@ -3,25 +3,33 @@ class Solution:
         self.stack = []
 
     def pop(self):
-        self.stack.pop(-1)
+        item = self.stack.pop(-1)
+        return item
 
     def push(self, item):
         self.stack.append(item)
 
     def isValid(self, s: str) -> bool:
+        if len(s) % 2 != 0:
+            return False
         for letter in s:
+            print(self.stack)
+            print(letter)
             if letter == "(" or letter == "{" or letter == "[":
                 self.push(letter)
-            elif letter == ")" and self.stack[-1] == "(":
+            elif letter == ")" and len(self.stack) > 0:
                 self.pop()
-            elif letter == "}" and self.stack[-1] == "{":
+            elif letter == "}" and len(self.stack) > 0:
                 self.pop()
-            elif letter == "]" and self.stack[-1] == "[":
+            elif letter == "]" and len(self.stack) > 0:
                 self.pop()
             else:
                 return False
-        return True
+        if len(self.stack) != 0:
+            return False
+        else:
+            return True
 
 
-s = "({})[}()"
+s = "){"
 print(Solution().isValid(s))
