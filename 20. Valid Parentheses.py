@@ -11,14 +11,17 @@ class Solution:
     def isValid(self, s: str) -> bool:
         for letter in s:
             if letter == "(" or letter == "{" or letter == "[":
-                self.push(s)
-            else:
+                self.push(letter)
+            elif letter == ")" and self.stack[-1] == "(":
                 self.pop()
-        if len(self.stack) == 0:
-            return True
-        else:
-            return False
+            elif letter == "}" and self.stack[-1] == "{":
+                self.pop()
+            elif letter == "]" and self.stack[-1] == "[":
+                self.pop()
+            else:
+                return False
+        return True
 
 
-s = "()"
+s = "({})[}()"
 print(Solution().isValid(s))
