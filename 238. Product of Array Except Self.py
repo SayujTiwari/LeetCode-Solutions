@@ -7,27 +7,16 @@ You must write an algorithm that runs in O(n) time and without using the divisio
 
 class Solution:
     def productExceptSelf(self, nums: list[int]) -> list[int]:
-        prefix = []
-        postfix = []
+        answer = [1] * len(nums)
 
+        prefix = 1
         for i in range(len(nums)):
-            if i == 0:
-                prefix.append(nums[0])
-            else:
-                prefix.append(nums[i] * prefix[i - 1])
-        for i in range(-1, -len(nums) - 1, -1):
-            if i == -1:
-                postfix.append(nums[i])
-            else:
-                postfix.insert(i - 1, postfix[i + 1] * nums[i])
-        answer = []
-        for i in range(len(nums)):
-            if i == 0:
-                answer.append(1 * postfix[i + 1])
-            elif i == len(nums) - 1:
-                answer.append(1 * prefix[i - 1])
-            else:
-                answer.append(prefix[i - 1] * postfix[i + 1])
+            answer[i] = prefix
+            prefix *= nums[i]
+        postfix = 1
+        for i in range(len(nums) - 1, -1, -1):
+            answer[i] *= postfix
+            postfix *= nums[i]
         return answer
 
 
