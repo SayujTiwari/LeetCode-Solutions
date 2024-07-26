@@ -1,21 +1,20 @@
 class Solution:
 
-    def __init__(self):
-        self.stack = []
-        self.min = []
-
-    def push(self, val: int) -> None:
-        self.stack.append(val)
-        if len(self.stack) == 1:
-            self.min.append(val)
-        else:
-            if val <= self.min[len(self.min) - 1]:
-                self.min.append(val)
-
-    def pop(self) -> None:
-        if self.stack[len(self.stack) - 1] == self.min[len(self.min) - 1]:
-            self.min.pop()
-        self.stack.pop()
-
     def evalRPN(self, tokens: list[str]) -> int:
-        pass
+        stack = []
+        ops = ["*", "+", "-", "/"]
+        for token in tokens:
+            if token in ops:
+                value2 = int(stack.pop())
+                value1 = int(stack.pop())
+                if token == "+":
+                    stack.append(int(value1 + value2))
+                elif token == "-":
+                    stack.append(int(value1 - value2))
+                elif token == "*":
+                    stack.append(int(value1 * value2))
+                elif token == "/":
+                    stack.append(int(value1 / value2))
+            else:
+                stack.append(token)
+        return int(stack[0])
