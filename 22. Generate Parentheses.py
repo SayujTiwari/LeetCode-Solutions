@@ -1,28 +1,15 @@
 class Solution:
     def dailyTemperatures(self, temperatures: list[int]) -> list[int]:
-        stack = []
-        days_list = []
-        x = 0
-        while True:
-            for i in range(len(temperatures)):
-                temp = temperatures[x]
-                # print(f"The current temp: {temp}")
-                if i == len(temperatures) - 1:
-                    days_list.append(0)
-                elif temp < temperatures[i + 1]:
-                    stack.append(temperatures[i + 1])
-                    # print(f"The stack: {stack}")
-                    days_list.append(len(stack))
-                    stack = []
-                    # print(f"X is: {x}")
-                    x += 1
-                else:
-                    stack.append(temperatures[i + 1])
-                    # print(f"The stack: {stack}")
-            if x == len(temperatures) - 1:
-                # break
-                return days_list
+        n = len(temperatures)
+        answer = [0] * n  # makes sure its in the correct index by adding placeholders.
+        stack = []  # this will store the indices
 
+        for i in range(n):
+            while stack and temperatures[i] > temperatures[stack[-1]]:
+                # Pop the index from the stack
+                prev_index = stack.pop()
+                answer[prev_index] = i - prev_index
+            # Push the current index onto the stack
+            stack.append(i)
 
-temperatures = [73, 74, 75, 71, 69, 72, 76, 73]
-print(Solution.dailyTemperatures(temperatures, temperatures))
+        return answer
