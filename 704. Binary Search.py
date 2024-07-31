@@ -11,7 +11,3 @@ class Solution:
             else:
                 start = middle + 1
         return -1
-
-
-nums = [-1, 0, 3, 5, 9, 12]
-print(Solution.search(nums, nums, 5))
