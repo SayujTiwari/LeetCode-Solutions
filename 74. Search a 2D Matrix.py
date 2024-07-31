@@ -11,7 +11,3 @@ class Solution:
             else:
                 start = middle + 1
         return False
-
-
-matrix = [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]]
-print(Solution.searchMatrix(matrix, matrix, 3))
